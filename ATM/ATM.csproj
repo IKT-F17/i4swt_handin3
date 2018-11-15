@@ -39,8 +39,17 @@
     <Content Include="Resources\TransponderReceiver.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\ITrack.cs" />
-    <Compile Include="Interfaces\ITrackFactory.cs" />
+    <Compile Include="ATM.cs" />
+    <Compile Include="ITrack.cs" />
+    <Compile Include="ITrackFactory.cs" />
+    <Compile Include="Track.cs" />
+    <Compile Include="TrackFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="TransponderReceiver, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\TransponderReceiver.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

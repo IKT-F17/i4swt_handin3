@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ATM.Interfaces
+namespace ATM
 {
-    class ITrackFactory
+    public interface ITrackFactory
     {
-        
+        ITrack SpawnTrack(string rawTrackData);
+
     }
 }

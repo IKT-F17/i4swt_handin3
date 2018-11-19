@@ -4,10 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ATM.Interfaces
+
+
+namespace ATM
 {
-    class ITrackFactory
+    public interface ITrackFactory
     {
-        
+        //string Tag { get; set; }
+        //int XCoord { get; set; }
+        //int YCoord { get; set; }
+        //int Altitude { get; set; }
+        //DateTime TimeStamp { get; set; }
+
+        ITrack SpawnTrack(string rawTrackData);
+
     }
+
+
 }

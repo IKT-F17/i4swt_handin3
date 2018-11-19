@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ATM.Interfaces
+namespace ATM
 {
-    class ITrack
+    public interface ITrack
     {
         //1 Tag Track tag(text)
         //2 X coordinate Track X coordinate in meters
@@ -24,6 +24,6 @@ namespace ATM.Interfaces
 
         DateTime TimeStamp { get; set; }
 
-        //void updateTrack(ITrack track);       <- 
+        void updateTrack(ITrack track);
     }
 }

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ATM.Interfaces
 {
-    class ITrack
+    public interface ITrack
     {
         //1 Tag Track tag(text)
         //2 X coordinate Track X coordinate in meters
@@ -17,13 +13,21 @@ namespace ATM.Interfaces
         string Tag { get; set; }
 
         int XCoord { get; set; }
+        int XCoordDelta { get; set; }
 
         int YCoord { get; set; }
+        int YCoordDelta { get; set; }
 
         int Altitude { get; set; }
+        int AltitudeDelta { get; set; }
 
         DateTime TimeStamp { get; set; }
+        int TimeStampDelta { get; set; }
 
-        //void updateTrack(ITrack track);       <- 
+        int Heading { get; set; }
+
+        int Velocity { get; set; }
+
+        void UpdateTrack(ITrack track);
     }
 }

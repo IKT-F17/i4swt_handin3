@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ATM.Interfaces
 {
-    class ITrackFactory
+    public interface ITrackFactory
     {
-        
+        ITrack SpawnTrack(string rawTrackData);
     }
 }

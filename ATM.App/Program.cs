@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TransponderReceiver;
 
 namespace ATM.App
 {
@@ -10,7 +7,9 @@ namespace ATM.App
     {
         static void Main(string[] args)
         {
-            System.Console.WriteLine("Hello World!");
+            new TrackFactory(TransponderReceiverFactory.CreateTransponderDataReceiver());
+
+            Console.ReadKey();
         }
     }
 }

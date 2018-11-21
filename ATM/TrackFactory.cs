@@ -8,6 +8,7 @@ namespace ATM
 {
     public class TrackFactory : ITrackFactory
     {
+        public event EventHandler<Dictionary<string, ITrack>> OnTrackListDoneEvent;
         private Dictionary<string, ITrack> globalTrackData;
 
         public TrackFactory(ITransponderReceiver receiver)
@@ -17,25 +18,21 @@ namespace ATM
             receiver.TransponderDataReady += Receiver_TransponderDataReady;
         }
 
-        private void Receiver_TransponderDataReady(object sender, RawTransponderDataEventArgs e)
+        public void Receiver_TransponderDataReady(object sender, RawTransponderDataEventArgs e)
         {
-            //globalTrackData.Clear();
-
-            var rawTrackData = e.TransponderData;
-
-            foreach (var item in rawTrackData)
+            foreach (var item in e.TransponderData)
             {
                 var track = SpawnTrack(item);
 
                 if (!globalTrackData.ContainsKey(track.Tag))
-                {
                     globalTrackData.Add(track.Tag, track);
-                }
-                else
-                {
-                    globalTrackData[track.Tag].UpdateTrack(track);
-                }
+
+                //Console.WriteLine($"TAG:{track.Tag}, X:{track.XCoord}, Y:{track.YCoord}, TIME:{track.TimeStamp}");
             }
+            
+
+
+            OnTrackListDoneEvent?.Invoke(this, globalTrackData);
         }
 
         public ITrack SpawnTrack(string rawTrackData)

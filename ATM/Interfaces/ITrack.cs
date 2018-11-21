@@ -13,21 +13,21 @@ namespace ATM.Interfaces
         string Tag { get; set; }
 
         int XCoord { get; set; }
-        int XCoordDelta { get; set; }
+        int XCoordOld { get; set; }
 
         int YCoord { get; set; }
-        int YCoordDelta { get; set; }
+        int YCoordOld { get; set; }
 
         int Altitude { get; set; }
-        int AltitudeDelta { get; set; }
+        int AltitudeOld { get; set; }
 
         DateTime TimeStamp { get; set; }
-        int TimeStampDelta { get; set; }
+        DateTime TimeStampOld { get; set; }
 
         int Heading { get; set; }
 
         int Velocity { get; set; }
 
-        void UpdateTrack(ITrack track);
+        //void UpdateTrack(ITrack track);
     }
 }

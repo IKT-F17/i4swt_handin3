@@ -42,8 +42,11 @@
     <Content Include="Resources\TransponderReceiver.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Airspace.cs" />
+    <Compile Include="Interfaces\IAirspace.cs" />
     <Compile Include="Interfaces\ITrack.cs" />
     <Compile Include="Interfaces\ITrackFactory.cs" />
+    <Compile Include="Telemetry.cs" />
     <Compile Include="TrackFactory.cs" />
     <Compile Include="Track.cs" />
   </ItemGroup>

@@ -22,7 +22,7 @@ namespace ATM.Unit.Test
             // Used in SpawnTrackFromTrackFactory:
             _uut = new TrackFactory(_fakeData);
         }
-
+         
         [Test]
         public void ReceiveCorrectDataFromTransponderReceiverDll()
         {

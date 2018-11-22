@@ -21,17 +21,5 @@ namespace ATM
 
         public int Heading { get; set; } = 0;
         public int Velocity { get; set; } = 0;
-
-        //public void UpdateTrack(ITrack track)
-        //{
-        //    // TODO: Heading/Course
-        //    var xDiff = track.XCoord - this.XCoord;
-        //    var yDiff = track.YCoord - this.YCoord;
-        //    Heading = CalcHeading(xDiff, yDiff);
-
-        //    Console.WriteLine($"Flight: {track.Tag}, have a heading of: {Heading} degrees.");
-
-        //    // TODO: Speed/Velocity (m/s)
-        //}
     }
 }

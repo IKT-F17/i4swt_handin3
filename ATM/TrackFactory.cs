@@ -18,7 +18,7 @@ namespace ATM
             receiver.TransponderDataReady += Receiver_TransponderDataReady;
         }
 
-        public void Receiver_TransponderDataReady(object sender, RawTransponderDataEventArgs e)
+        private void Receiver_TransponderDataReady(object sender, RawTransponderDataEventArgs e)
         {
             foreach (var item in e.TransponderData)
             {
@@ -29,8 +29,6 @@ namespace ATM
 
                 //Console.WriteLine($"TAG:{track.Tag}, X:{track.XCoord}, Y:{track.YCoord}, TIME:{track.TimeStamp}");
             }
-            
-
 
             OnTrackListDoneEvent?.Invoke(this, globalTrackData);
         }

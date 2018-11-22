@@ -9,7 +9,6 @@ namespace ATM.App
         {
             var track = new TrackFactory(TransponderReceiverFactory.CreateTransponderDataReceiver());
             new Airspace(track);
-            //new Telemetry(track);
 
             Console.ReadKey();
         }

@@ -25,9 +25,6 @@ namespace ATM.Interfaces
         DateTime TimeStampOld { get; set; }
 
         int Heading { get; set; }
-
         int Velocity { get; set; }
-
-        //void UpdateTrack(ITrack track);
     }
 }

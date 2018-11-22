@@ -30,8 +30,7 @@ namespace ATM
                 if (!IsInsideAirspace(item.Value))
                     e.Remove(item.Key);
 
-                //Console.WriteLine($"TAG:{item.Value.Tag}, X:{item.Value.XCoord}, Y:{item.Value.YCoord}, TIME:{item.Value.TimeStamp}");
-                Console.WriteLine($"AIRSPACE - TAG:{item.Value.Tag} X:{item.Value.XCoord} in e");
+                Console.WriteLine($"TAG:{item.Value.Tag}, X:{item.Value.XCoord}, Y:{item.Value.YCoord}, TIME:{item.Value.TimeStamp}");
             }
 
             OnAirspaceCheckEventDone?.Invoke(this, e);
@@ -40,11 +39,11 @@ namespace ATM
         private bool IsInsideAirspace(ITrack track)
         {
             return track.XCoord >= XMin
-                && track.XCoord <= XMax
-                && track.YCoord >= YMin
-                && track.YCoord <= YMax
-                && track.Altitude >= MinAltitude
-                && track.Altitude <= MaxAltitude;
+                   && track.XCoord <= XMax
+                   && track.YCoord >= YMin
+                   && track.YCoord <= YMax
+                   && track.Altitude >= MinAltitude
+                   && track.Altitude <= MaxAltitude;
         }
     }
 }

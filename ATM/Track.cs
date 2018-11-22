@@ -3,7 +3,7 @@ using ATM.Interfaces;
 
 namespace ATM
 {
-    class Track : ITrack
+    public class Track : ITrack
     {
         public string Tag { get; set; }
 

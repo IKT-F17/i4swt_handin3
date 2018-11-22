@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NSubstitute;
+using NUnit.Framework;
+
+using TransponderReceiver;
+
 
 namespace ATM.Integration.Test
 {
@@ -23,7 +28,6 @@ namespace ATM.Integration.Test
         {
             // Used in ReceiveCorrectDataFromTransponderReceiverDll:
             _fakeData = Substitute.For<ITransponderReceiver>();
-
             // Used in SpawnTrackFromTrackFactory:
             _uut = new TrackFactory(_fakeData);
         }

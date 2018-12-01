@@ -22,12 +22,25 @@ namespace ATM
         {
             foreach (var item in e.TransponderData)
             {
+                // DEBUG RAW DATA:
+                Console.SetCursorPosition(0,0);
+                Console.Write($"Raw   data: {item}");
+
                 var track = SpawnTrack(item);
 
-                if (!globalTrackData.ContainsKey(track.Tag))
-                    globalTrackData.Add(track.Tag, track);
+                // DEBUG GENERATED TRACK DATA:
+                Console.SetCursorPosition(0, 1);
+                Console.Write($"Track data: {track.Tag};{track.XCoord};{track.YCoord};{track.Altitude};{track.TimeStamp}");
 
-                //Console.WriteLine($"TAG:{track.Tag}, X:{track.XCoord}, Y:{track.YCoord}, TIME:{track.TimeStamp}");
+                // If a tag exist in our dictionary then update it:
+                if (!globalTrackData.ContainsKey(track.Tag))
+                {
+                    globalTrackData.Add(track.Tag, track);
+                }
+                else
+                {
+                    globalTrackData[track.Tag] = track;
+                }
             }
 
             OnTrackListDoneEvent?.Invoke(this, globalTrackData);

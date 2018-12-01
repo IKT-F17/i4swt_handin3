@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using ATM.Interfaces;
 
 namespace ATM
@@ -13,27 +12,56 @@ namespace ATM
         private int YMax = 90000;
         private int MinAltitude = 500;
         private int MaxAltitude = 20000;
+        private List<string> outsideAirspace = new List<string>();
+        private List<string> insideAirspace = new List<string>();
+        //private ITrackFactory trackFromTrackFactory;
 
         public event EventHandler<Dictionary<string, ITrack>> OnAirspaceCheckEventDone;
-        private ITrackFactory trackFromTrackFactory;
+
 
         public Airspace(ITrackFactory track)
         {
-            trackFromTrackFactory = track;
-            trackFromTrackFactory.OnTrackListDoneEvent += TrackFromTrackFactory_OnTrackListDoneEvent;
+            //trackFromTrackFactory = track;
+            //trackFromTrackFactory.OnTrackListDoneEvent += TrackFromTrackFactory_OnTrackListDoneEvent;
+            
+            track.OnTrackListDoneEvent += TrackFromTrackFactory_OnTrackListDoneEvent;
         }
 
         private void TrackFromTrackFactory_OnTrackListDoneEvent(object sender, Dictionary<string, ITrack> e)
         {
-            foreach (var item in e.ToList())
+            foreach (var track in e)
             {
-                if (!IsInsideAirspace(item.Value))
-                    e.Remove(item.Key);
+                if (IsInsideAirspace(track.Value))
+                {
+                    if (!insideAirspace.Contains(track.Key)) insideAirspace.Add(track.Key);
+                    if (outsideAirspace.Contains(track.Key))
+                    {
+                        outsideAirspace.Remove(track.Key); // If true track just entered airspace.
+                        Console.SetCursorPosition(0,4);
+                        Console.Write($"{track.Key} - entered Airspace.");
+                    }
+                }
+                else
+                {
+                    if (!outsideAirspace.Contains(track.Key)) outsideAirspace.Add(track.Key);
+                    if (insideAirspace.Contains(track.Key))
+                    {
+                        insideAirspace.Remove(track.Key);   // If true track just left airspace.
+                        Console.SetCursorPosition(0, 5);
+                        Console.Write($"{track.Key} - left Airspace.");
+                    }
+                }
 
-                Console.WriteLine($"TAG:{item.Value.Tag}, X:{item.Value.XCoord}, Y:{item.Value.YCoord}, TIME:{item.Value.TimeStamp}");
+                // DEBUG:
+                Console.SetCursorPosition(0,2);
+                Console.Write($"Outside: {outsideAirspace.Count} Inside: {insideAirspace.Count}");
+
+                //e.Remove(track.Key);
+
+                //Console.WriteLine($"TAG:{track.Value.Tag}, X:{track.Value.XCoord}, Y:{track.Value.YCoord}, TIME:{track.Value.TimeStamp}");
             }
 
-            OnAirspaceCheckEventDone?.Invoke(this, e);
+            //OnAirspaceCheckEventDone?.Invoke(this, e);
         }
 
         private bool IsInsideAirspace(ITrack track)

@@ -22,15 +22,11 @@ namespace ATM
         {
             foreach (var item in e.TransponderData)
             {
-                // DEBUG RAW DATA:
-                Console.SetCursorPosition(0,0);
-                Console.Write($"Raw   data: {item}");
+                // DEBUG PRINT RAW DATA:
+                //Console.SetCursorPosition(0,0);
+                //Console.Write($"Raw   data: {item}");
 
                 var track = SpawnTrack(item);
-
-                // DEBUG GENERATED TRACK DATA:
-                Console.SetCursorPosition(0, 1);
-                Console.Write($"Track data: {track.Tag};{track.XCoord};{track.YCoord};{track.Altitude};{track.TimeStamp}");
 
                 // If a tag exist in our dictionary then update it:
                 if (!globalTrackData.ContainsKey(track.Tag))
@@ -39,11 +35,55 @@ namespace ATM
                 }
                 else
                 {
-                    globalTrackData[track.Tag] = track;
-                }
+                    UpdateTrack(track);
+                }               
             }
 
             OnTrackListDoneEvent?.Invoke(this, globalTrackData);
+        }
+
+        private void UpdateTrack(ITrack track)
+        {
+            // Keeps old data:
+            globalTrackData[track.Tag].XCoordOld = globalTrackData[track.Tag].XCoord;
+            globalTrackData[track.Tag].YCoordOld = globalTrackData[track.Tag].YCoord;
+            globalTrackData[track.Tag].AltitudeOld = globalTrackData[track.Tag].Altitude;
+            globalTrackData[track.Tag].TimeStampOld = globalTrackData[track.Tag].TimeStamp;
+
+            // Updates with new data:
+            globalTrackData[track.Tag].XCoord = track.XCoord;
+            globalTrackData[track.Tag].YCoord = track.YCoord;
+            globalTrackData[track.Tag].Altitude = track.Altitude;
+            globalTrackData[track.Tag].TimeStamp = track.TimeStamp;
+
+            // Updating heading and velocity:
+            CalculateHeading(track.Tag);
+            CalculateVelocity(track.Tag);
+        }
+
+        private void CalculateHeading(string tag)
+        {
+            var xDiff = globalTrackData[tag].XCoord - globalTrackData[tag].XCoordOld;
+            var yDiff = globalTrackData[tag].YCoord - globalTrackData[tag].YCoordOld;
+
+            var heading = 90.0d - Math.Atan2(yDiff, xDiff) * 180 / Math.PI;
+
+            if (heading < 0.0d) heading += 360.0;
+
+            globalTrackData[tag].Heading = (int)heading;
+        }
+
+        private void CalculateVelocity(string tag)
+        {
+            var xDiff = Math.Abs(globalTrackData[tag].XCoord - globalTrackData[tag].XCoordOld);
+            var yDiff = Math.Abs(globalTrackData[tag].YCoord - globalTrackData[tag].YCoordOld);
+            var distance = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2));
+
+            var deltaTime = globalTrackData[tag].TimeStamp.Subtract(globalTrackData[tag].TimeStampOld).TotalSeconds;
+
+            var velocity = distance / deltaTime;
+
+            globalTrackData[tag].Velocity = (int) velocity;
         }
 
         public ITrack SpawnTrack(string rawTrackData)

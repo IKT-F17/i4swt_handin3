@@ -11,20 +11,17 @@ namespace ATM.Interfaces
         //5 Timestamp Timestamp of the above data(”yyyymmddhhmmssfff”)
 
         string Tag { get; set; }
-
         int XCoord { get; set; }
-        int XCoordOld { get; set; }
-
         int YCoord { get; set; }
-        int YCoordOld { get; set; }
-
         int Altitude { get; set; }
-        int AltitudeOld { get; set; }
-
         DateTime TimeStamp { get; set; }
-        DateTime TimeStampOld { get; set; }
 
         int Heading { get; set; }
         int Velocity { get; set; }
+
+        int XCoordOld { get; set; }
+        int YCoordOld { get; set; }
+        int AltitudeOld { get; set; }
+        DateTime TimeStampOld { get; set; }
     }
 }

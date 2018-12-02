@@ -8,7 +8,7 @@ namespace ATM
 {
     public class TrackFactory : ITrackFactory
     {
-        public event EventHandler<Dictionary<string, ITrack>> OnTrackListDoneEvent;
+        public event EventHandler<TrackDataEventArgs> OnTrackListDoneEvent;
         private Dictionary<string, ITrack> globalTrackData;
 
         public TrackFactory(ITransponderReceiver receiver)
@@ -39,7 +39,7 @@ namespace ATM
                 }               
             }
 
-            OnTrackListDoneEvent?.Invoke(this, globalTrackData);
+            OnTrackListDoneEvent?.Invoke(this, new TrackDataEventArgs(globalTrackData));
         }
 
         private void UpdateTrack(ITrack track)
@@ -57,34 +57,11 @@ namespace ATM
             globalTrackData[track.Tag].TimeStamp = track.TimeStamp;
 
             // Updating heading and velocity:
-            CalculateHeading(track.Tag);
-            CalculateVelocity(track.Tag);
+            //CalculateHeading(track.Tag);
+           // CalculateVelocity(track.Tag);
         }
 
-        private void CalculateHeading(string tag)
-        {
-            var xDiff = globalTrackData[tag].XCoord - globalTrackData[tag].XCoordOld;
-            var yDiff = globalTrackData[tag].YCoord - globalTrackData[tag].YCoordOld;
-
-            var heading = 90.0d - Math.Atan2(yDiff, xDiff) * 180 / Math.PI;
-
-            if (heading < 0.0d) heading += 360.0;
-
-            globalTrackData[tag].Heading = (int)heading;
-        }
-
-        private void CalculateVelocity(string tag)
-        {
-            var xDiff = Math.Abs(globalTrackData[tag].XCoord - globalTrackData[tag].XCoordOld);
-            var yDiff = Math.Abs(globalTrackData[tag].YCoord - globalTrackData[tag].YCoordOld);
-            var distance = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2));
-
-            var deltaTime = globalTrackData[tag].TimeStamp.Subtract(globalTrackData[tag].TimeStampOld).TotalSeconds;
-
-            var velocity = distance / deltaTime;
-
-            globalTrackData[tag].Velocity = (int) velocity;
-        }
+       
 
         public ITrack SpawnTrack(string rawTrackData)
         {

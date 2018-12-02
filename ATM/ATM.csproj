@@ -50,8 +50,12 @@
     <Compile Include="Interfaces\ISeparation.cs" />
     <Compile Include="Interfaces\ITrack.cs" />
     <Compile Include="Interfaces\ITrackFactory.cs" />
+    <Compile Include="IUtilities.cs" />
+    <Compile Include="TrackEventArg.cs" />
+    <Compile Include="TrackDataEventArgs.cs" />
     <Compile Include="TrackFactory.cs" />
     <Compile Include="Track.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="TransponderReceiver, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">

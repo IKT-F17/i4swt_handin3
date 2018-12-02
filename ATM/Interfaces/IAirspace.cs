@@ -5,6 +5,8 @@ namespace ATM.Interfaces
 {
     public interface IAirspace
     {
-        event EventHandler<Dictionary<string, ITrack>> OnAirspaceCheckEventDone;
+        event EventHandler<TrackDataEventArgs> OnAirspaceCheckEventDone;
+        event EventHandler<TrackEventArgs> OnPlaneEnteringAirspace;
+        event EventHandler<TrackEventArgs> OnPlaneExitingAirspace;
     }
 }

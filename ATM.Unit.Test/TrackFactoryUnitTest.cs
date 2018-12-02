@@ -37,6 +37,18 @@ namespace ATM.Unit.Test
         }
 
         [Test]
+        public void ReceiveSameDataFromTransponderReceiverDll()
+        {
+            var testDataList = new List<string>
+            {
+                "PIE284;29388;49932;2000;20151006213456789",
+                "PIE284;29388;49932;2000;20151006213456789"
+            };
+
+            _trFakeData.TransponderDataReady += Raise.EventWith(this, new RawTransponderDataEventArgs(testDataList));
+        }
+
+        [Test]
         public void SpawnTrackFromTrackFactory()
         {
             ITrack testTrack = _uut.SpawnTrack("PIE284;29388;49932;2000;20151006213456789");

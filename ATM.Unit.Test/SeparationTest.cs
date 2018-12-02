@@ -8,37 +8,37 @@ using NUnit.Framework.Internal;
 
 namespace ATM.Unit.Test
 {
-    [TestFixture()]
-    public class SeparationTest
-    {
-        [SetUp]
-        public void Setup()
-        {
-        }
+    //[TestFixture()]
+    //public class SeparationTest
+    //{
+    //    [SetUp]
+    //    public void Setup()
+    //    {
+    //    }
 
 
-        [Test]
-        public void FindPlanesOnCollision_OnCollision()
-        {
-            throw new NotImplementedException();
-        }
+    //    [Test]
+    //    public void FindPlanesOnCollision_OnCollision()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        [Test]
-        public void FindPlanesOnCollision_NotOnCollision()
-        {
-            throw new NotImplementedException();
-        }
+    //    [Test]
+    //    public void FindPlanesOnCollision_NotOnCollision()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        [Test]
-        public void FindPlanesOnCollision_NoPlanesInAirspace()
-        {
-            throw new NotImplementedException();
-        }
+    //    [Test]
+    //    public void FindPlanesOnCollision_NoPlanesInAirspace()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        // husk at teste if statements osse. 
-
-
+    //    // husk at teste if statements osse. 
 
 
-    }
+
+
+    //}
 }

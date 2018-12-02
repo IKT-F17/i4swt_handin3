@@ -32,6 +32,7 @@ namespace ATM
                     if (outsideAirspace.Contains(track.Key))
                     {
                         outsideAirspace.Remove(track.Key); // If true track just entered airspace.
+                        // TODO: Raise “TrackEnteredAirspace”-event for 5 seconds. Include rendition of the track and the time.
                         Console.SetCursorPosition(0, 9);
                         Console.Write($"{track.Key} - entered Airspace.");
                     }
@@ -42,6 +43,7 @@ namespace ATM
                     if (insideAirspace.Contains(track.Key))
                     {
                         insideAirspace.Remove(track.Key);   // If true track just left airspace.
+                        // TODO: Raise "Track Left Airspace”-event for 5 seconds. Include rendition of the track and the time.
                         Console.SetCursorPosition(0, 10);
                         Console.Write($"{track.Key} - left Airspace.");
                     }
@@ -50,9 +52,10 @@ namespace ATM
                 // DEBUG:
                 Console.SetCursorPosition(0,8);
                 Console.Write($"Outside: {outsideAirspace.Count} Inside: {insideAirspace.Count}");
-
-                //e.Remove(track.Key);
             }
+            
+            // TODO: Remove all tracks, from the global track dictionary, which are outside the airspace.
+
 
             //OnAirspaceCheckEventDone?.Invoke(this, e);
         }

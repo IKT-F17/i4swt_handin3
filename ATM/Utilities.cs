@@ -23,6 +23,7 @@ namespace ATM
         {
             var xDiff = Math.Abs(track.XCoord - track.XCoordOld);
             var yDiff = Math.Abs(track.YCoord - track.YCoordOld);
+
             var distance = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2));
 
             var deltaTime = track.TimeStamp.Subtract(track.TimeStampOld).TotalSeconds;

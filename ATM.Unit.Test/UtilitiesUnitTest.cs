@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using ATM.Interfaces;
-using NSubstitute;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 
 namespace ATM.Unit.Test
 {
@@ -12,6 +8,8 @@ namespace ATM.Unit.Test
     {
         private Track _UtilitiesTrack1;
         private Track _UtilitiesTrack2;
+        private Track _UtilitiesTrack3;
+        private Track _UtilitiesTrack4;
 
         [SetUp]
         public void Setup()
@@ -22,15 +20,31 @@ namespace ATM.Unit.Test
                 AltitudeOld = 8000,
                 Heading = 0,
                 Tag = "CCC666",
-                TimeStamp = new DateTime(2018, 11, 1, 11, 11, 11, 0), 
-                TimeStampOld = new DateTime(2018, 11, 1, 11, 11, 10, 0), 
+                TimeStamp = new DateTime(2018, 11, 1, 11, 11, 11, 0),
+                TimeStampOld = new DateTime(2018, 11, 1, 11, 11, 10, 0),
                 Velocity = 0,
                 XCoord = 16000,
                 YCoord = 16000,
                 XCoordOld = 15000,
                 YCoordOld = 15000
             };
+
             _UtilitiesTrack2 = new Track()
+            {
+                Altitude = 8000,
+                AltitudeOld = 8000,
+                Heading = 0,
+                Tag = "CCC666",
+                TimeStamp = new DateTime(2018, 11, 1, 11, 11, 11, 0),
+                TimeStampOld = new DateTime(2018, 11, 1, 11, 11, 10, 0),
+                Velocity = 0,
+                XCoord = 16000,
+                YCoord = 15000,
+                XCoordOld = 15000,
+                YCoordOld = 16000
+            };
+
+            _UtilitiesTrack3 = new Track()
             {
                 Altitude = 8000,
                 AltitudeOld = 8000,
@@ -44,6 +58,21 @@ namespace ATM.Unit.Test
                 XCoordOld = 16000,
                 YCoordOld = 16000
             };
+
+            _UtilitiesTrack4 = new Track()
+            {
+                Altitude = 8000,
+                AltitudeOld = 8000,
+                Heading = 0,
+                Tag = "CCC666",
+                TimeStamp = new DateTime(2018, 11, 1, 11, 11, 11, 0),
+                TimeStampOld = new DateTime(2018, 11, 1, 11, 11, 10, 0),
+                Velocity = 0,
+                XCoord = 15000,
+                YCoord = 16000,
+                XCoordOld = 16000,
+                YCoordOld = 15000
+            };
         }
 
         [Test]
@@ -56,12 +85,30 @@ namespace ATM.Unit.Test
         }
 
         [Test]
+        public void CalculateCorrectHeadingInSecondQuadrant()
+        {
+            int heading = 135;
+
+            Utilities.CalculateHeading(_UtilitiesTrack2);
+            Assert.AreEqual(_UtilitiesTrack2.Heading, heading);
+        }
+
+        [Test]
         public void CalculateCorrectHeadingInThirdQuadrant()
         {
             int heading = 225;
 
-            Utilities.CalculateHeading(_UtilitiesTrack2);
-            Assert.AreEqual(_UtilitiesTrack2.Heading, heading);
+            Utilities.CalculateHeading(_UtilitiesTrack3);
+            Assert.AreEqual(_UtilitiesTrack3.Heading, heading);
+        }
+
+        [Test]
+        public void CalculateCorrectHeadingInFourthQuadrant()
+        {
+            int heading = 315;
+
+            Utilities.CalculateHeading(_UtilitiesTrack4);
+            Assert.AreEqual(_UtilitiesTrack4.Heading, heading);
         }
 
         [Test]
@@ -70,7 +117,7 @@ namespace ATM.Unit.Test
             int velocity = 1414;
 
             Utilities.CalculateVelocity(_UtilitiesTrack1);
-            Assert.AreEqual(_UtilitiesTrack1.Velocity,velocity);
+            Assert.AreEqual(_UtilitiesTrack1.Velocity, velocity);
         }
     }
 }

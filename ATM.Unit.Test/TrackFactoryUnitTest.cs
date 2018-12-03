@@ -75,5 +75,14 @@ namespace ATM.Unit.Test
             var tesTime = new DateTime(2015, 10, 06, 21, 34, 56, 789);
             Assert.That(testTrack.TimeStamp, Is.EqualTo(tesTime));
         }
+
+        [Test]
+        public void SpawnTrackFromTrackFactoryAndConvertToString()
+        {
+            string correctRawTrack = "PIE284;29388;49932;2000;20151006213456789";
+            ITrack testTrack = _uut.SpawnTrack(correctRawTrack);
+            Assert.AreEqual(correctRawTrack, testTrack.ToString());
+
+        }
     }
 }

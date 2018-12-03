@@ -14,7 +14,7 @@ namespace ATM
             Heading = 0;
             Velocity = 0;
         }
-
+        
         public string Tag { get; set; }
         public int XCoord { get; set; }
         public int YCoord { get; set; }
@@ -28,5 +28,9 @@ namespace ATM
         public int YCoordOld { get; set; } = 0;
         public int AltitudeOld { get; set; } = 0;
         public DateTime TimeStampOld { get; set; } = DateTime.MinValue;
+        public override string ToString()
+        {
+            return $"{Tag};{XCoord};{YCoord};{Altitude};{TimeStamp:yyyyMMddHHmmssfff}";
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace ATM
 {
     public static class Utilities
     {
-        
+
 
         public static void CalculateHeading(ITrack track)
         {
@@ -27,7 +27,7 @@ namespace ATM
 
             var deltaTime = track.TimeStamp.Subtract(track.TimeStampOld).TotalSeconds;
 
-            var velocity = distance / deltaTime;
+            var velocity = deltaTime != 0.0d ? distance / deltaTime : 0.0d;
 
             track.Velocity = (int)velocity;
         }

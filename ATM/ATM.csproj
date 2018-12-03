@@ -51,7 +51,6 @@
     <Compile Include="Interfaces\ITrack.cs" />
     <Compile Include="Interfaces\ITrackFactory.cs" />
     <Compile Include="Separation.cs" />
-    <Compile Include="IUtilities.cs" />
     <Compile Include="TrackEventArg.cs" />
     <Compile Include="TrackDataEventArgs.cs" />
     <Compile Include="TrackFactory.cs" />

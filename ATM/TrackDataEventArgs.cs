@@ -6,7 +6,6 @@ namespace ATM
     public class TrackEventArgs : EventArgs
     {
         public ITrack Track { get; }
-
         public TrackEventArgs(ITrack track)
         {
             Track = track;

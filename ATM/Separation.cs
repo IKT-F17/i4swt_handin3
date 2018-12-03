@@ -17,9 +17,9 @@ namespace ATM
 
         private void FindPlanesOnCollision(object sender, TrackDataEventArgs e)
         {
-            foreach (var plane1 in e.Trackdata)
+            foreach (var plane1 in e.TrackData)
             {
-                foreach (var plane2 in e.Trackdata)
+                foreach (var plane2 in e.TrackData)
                 {
                     if (plane1.Key == plane2.Key) continue;
                     if (Math.Abs(plane1.Value.Altitude - plane2.Value.Altitude) <= verticalSeparation 

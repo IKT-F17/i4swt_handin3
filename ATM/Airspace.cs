@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using ATM.Interfaces;
 
@@ -28,7 +29,7 @@ namespace ATM
 
         private void Track_OnTrackListDoneEvent(object sender, TrackDataEventArgs e)
         {
-            foreach (var track in e.Trackdata)
+            foreach (var track in e.TrackData)
             {
                 if (IsInsideAirspace(track.Value))
                 {
@@ -42,7 +43,7 @@ namespace ATM
 
                     // TODO: Raise “TrackEnteredAirspace”-event for 5 seconds. Include rendition of the track and the time.
                     //Console.SetCursorPosition(0, 9);
-                    Console.Write($"{track.Key} - entered Airspace.");
+                    Console.Write($"{track.Key} - entered Airspace.",CultureInfo.CurrentCulture);
                 }
                 else
                 {
@@ -55,18 +56,18 @@ namespace ATM
 
                         // TODO: Raise "Track Left Airspace”-event for 5 seconds. Include rendition of the track and the time.
                         //Console.SetCursorPosition(0, 10);
-                        Console.Write($"{track.Key} - left Airspace.");
+                        Console.Write($"{track.Key} - left Airspace.",CultureInfo.CurrentCulture);
                     }
                 }
 
                 // DEBUG:
                 //Console.SetCursorPosition(0,8);
-                Console.Write($"Outside: {outsideAirspace.Count} Inside: {insideAirspace.Count}");
+                Console.Write($"Outside: {outsideAirspace.Count} Inside: {insideAirspace.Count}",CultureInfo.CurrentCulture);
             }
 
             // TODO: Remove all tracks, from the global track dictionary, which are outside the airspace.
 
-            var AirspaceTracks = e.Trackdata.Where(x => insideAirspace.Contains(x.Key)).ToDictionary(x => x.Key, v => v.Value);
+            var AirspaceTracks = e.TrackData.Where(x => insideAirspace.Contains(x.Key)).ToDictionary(x => x.Key, v => v.Value);
             OnAirspaceCheckEventDone?.Invoke(this, new TrackDataEventArgs(AirspaceTracks));
         }
 

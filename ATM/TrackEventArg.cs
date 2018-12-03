@@ -8,8 +8,8 @@ namespace ATM
     {
         public TrackDataEventArgs(Dictionary<string, ITrack> trackData)
         {
-            Trackdata = trackData;
+            TrackData = trackData;
         }
-        public Dictionary<string,ITrack> Trackdata { get; set; }
+        public Dictionary<string,ITrack> TrackData { get; set; }
        }
 }

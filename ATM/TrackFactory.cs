@@ -65,14 +65,18 @@ namespace ATM
 
         public ITrack SpawnTrack(string rawTrackData)
         {
+            //if (rawTrackData==null)
+            //{
+            //    throw new ArgumentNullException("rawTrackData was null");
+            //}
             string[] rawDataSplit = rawTrackData.Split(';');
 
             var track = new Track
             {
                 Tag = rawDataSplit[0],
-                XCoord = Convert.ToInt32(rawDataSplit[1]),
-                YCoord = Convert.ToInt32(rawDataSplit[2]),
-                Altitude = Convert.ToInt32(rawDataSplit[3]),
+                XCoord = Convert.ToInt32(rawDataSplit[1], CultureInfo.CurrentCulture),
+                YCoord = Convert.ToInt32(rawDataSplit[2], CultureInfo.CurrentCulture),
+                Altitude = Convert.ToInt32(rawDataSplit[3], CultureInfo.CurrentCulture),
                 TimeStamp = DateTime.ParseExact(rawDataSplit[4], "yyyyMMddHHmmssfff", CultureInfo.InvariantCulture)
             };
 

@@ -6,7 +6,7 @@ using ATM.Interfaces;
 
 namespace ATM
 {
-    public class Airspace :IAirspace
+    public class Airspace : IAirspace
     {
         private int XMin = 10000;
         private int YMin = 10000;
@@ -40,12 +40,9 @@ namespace ATM
 
                     OnPlaneEnteringAirspace?.Invoke(this, new TrackEventArgs(track.Value));
 
-
                     // TODO: Raise “TrackEnteredAirspace”-event for 5 seconds. Include rendition of the track and the time.
                     //Console.SetCursorPosition(0, 9);
                     Console.Write($"{track.Key} - entered Airspace.");
-
-                    
                 }
                 else
                 {
@@ -66,12 +63,11 @@ namespace ATM
                 //Console.SetCursorPosition(0,8);
                 Console.Write($"Outside: {outsideAirspace.Count} Inside: {insideAirspace.Count}");
             }
-            
+
             // TODO: Remove all tracks, from the global track dictionary, which are outside the airspace.
 
             var AirspaceTracks = e.Trackdata.Where(x => insideAirspace.Contains(x.Key)).ToDictionary(x => x.Key, v => v.Value);
-            OnAirspaceCheckEventDone?.Invoke(this, new TrackDataEventArgs(AirspaceTracks)); 
-
+            OnAirspaceCheckEventDone?.Invoke(this, new TrackDataEventArgs(AirspaceTracks));
         }
 
         private bool IsInsideAirspace(ITrack track)

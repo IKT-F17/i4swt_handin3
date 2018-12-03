@@ -11,7 +11,7 @@ namespace ATM.Unit.Test
     public class AirspaceUnitTest
     {
         private ITrackFactory _fakeTrackFactory;
-        private Airspace _uut;
+        private IAirspace _uut;
         private ITrack _track;
 
         private Track _outsideAirspaceTrackY;
@@ -31,8 +31,8 @@ namespace ATM.Unit.Test
                 AltitudeOld = 0,
                 Heading = 0,
                 Tag = "PIE284",
-                TimeStamp = DateTime.Now,
-                TimeStampOld = DateTime.Now,
+                TimeStamp = DateTime.Now,//DateTime.Parse("20170914T225015100Z"),
+                TimeStampOld = DateTime.Now,//DateTime.Parse("20170914T225015100Z"),
                 Velocity = 0,
                 XCoord = 15000,
                 YCoord = 25000,
@@ -46,8 +46,8 @@ namespace ATM.Unit.Test
                 AltitudeOld = 0,
                 Heading = 0,
                 Tag = "AAA666",
-                TimeStamp = DateTime.Now,
-                TimeStampOld = DateTime.Now,
+                TimeStamp = DateTime.Now,//DateTime.Parse("20170914225015100"),
+                TimeStampOld = DateTime.Now,//DateTime.Parse("20170914225015100"),
                 Velocity = 0,
                 XCoord = 15000,
                 YCoord = 25000,
@@ -61,8 +61,8 @@ namespace ATM.Unit.Test
                 AltitudeOld = 0,
                 Heading = 0,
                 Tag = "BBB666",
-                TimeStamp = DateTime.Now,
-                TimeStampOld = DateTime.Now,
+                TimeStamp = DateTime.Now,//DateTime.Parse("20170914225015100"),
+                TimeStampOld = DateTime.Now,//DateTime.Parse("20170914225015100"),
                 Velocity = 0,
                 XCoord = 150000,
                 YCoord = 25000,
@@ -70,14 +70,16 @@ namespace ATM.Unit.Test
                 YCoordOld = 0
             };
 
+
+
             _outsideAirspaceTrackY = new Track()
             {
                 Altitude = 8000,
                 AltitudeOld = 0,
                 Heading = 0,
                 Tag = "CCC666",
-                TimeStamp = DateTime.Now,
-                TimeStampOld = DateTime.Now,
+                TimeStamp = DateTime.Now,//DateTime.Parse("20170914225015100"),
+                TimeStampOld = DateTime.Now,//DateTime.Parse("20170914225015100"),
                 Velocity = 0,
                 XCoord = 15000,
                 YCoord = 250000,
@@ -85,14 +87,27 @@ namespace ATM.Unit.Test
                 YCoordOld = 0
             };
 
+
+
+
+
             //_fakeTrackFactory.OnTrackListDoneEvent += (o, args) => { testDictionary = args; };
+
         }
+
+        //[Test]
+        //public void ReceiveCorrectTrackFromTrackFactory()
+        //{
+
+        //}
 
         [Test]
         public void NoPlanesInAirspace()
         {
             _uut.OnPlaneEnteringAirspace += (s, e) => { Assert.Fail(); };
+
             _uut.OnPlaneExitingAirspace += (s, e) => { Assert.Fail(); };
+
 
             var testDictionary = new Dictionary<string, ITrack>();
             testDictionary.Add(_outsideAirspaceTrackAlt.Tag, _outsideAirspaceTrackAlt);
@@ -116,8 +131,8 @@ namespace ATM.Unit.Test
                 AltitudeOld = 0,
                 Heading = 0,
                 Tag = "BBB666",
-                TimeStamp = DateTime.Now,
-                TimeStampOld = DateTime.Now,
+                TimeStamp = DateTime.Now,//DateTime.Parse("20170914225015100"),
+                TimeStampOld = DateTime.Now,//DateTime.Parse("20170914225015100"),
                 Velocity = 0,
                 XCoord = 75000,
                 YCoord = 25000,
@@ -138,11 +153,16 @@ namespace ATM.Unit.Test
             _uut.OnPlaneExitingAirspace += (s, e) => { Assert.Fail(); };
 
             _fakeTrackFactory.OnTrackListDoneEvent += Raise.EventWith(this, new TrackDataEventArgs(testDictionary));
+
+
             testDictionary[_outsideAirspaceTrackX.Tag] = outsideAirspaceTrackXEntered;
             InAirspace = true;
 
+
+
             _fakeTrackFactory.OnTrackListDoneEvent += Raise.EventWith(this, new TrackDataEventArgs(testDictionary));
-            
+
+
             Assert.IsTrue(FoundInAirspace);
         }
 
@@ -159,8 +179,8 @@ namespace ATM.Unit.Test
                 AltitudeOld = 0,
                 Heading = 0,
                 Tag = "BBB666",
-                TimeStamp = DateTime.Now,
-                TimeStampOld = DateTime.Now,
+                TimeStamp = DateTime.Now,//DateTime.Parse("20170914225015100"),
+                TimeStampOld = DateTime.Now,//DateTime.Parse("20170914225015100"),
                 Velocity = 0,
                 XCoord = 75000,
                 YCoord = 25000,
@@ -239,12 +259,19 @@ namespace ATM.Unit.Test
             };
             _uut.OnPlaneExitingAirspace += (s, e) => { Assert.Fail(); };
 
+
             testDictionary.Add(outsideAirspaceTrackXEntered.Tag, outsideAirspaceTrackXEntered);
             InAirspace = true;
 
+
+
             _fakeTrackFactory.OnTrackListDoneEvent += Raise.EventWith(this, new TrackDataEventArgs(testDictionary));
+
 
             Assert.IsTrue(FoundInAirspace);
         }
+
+
+
     }
 }

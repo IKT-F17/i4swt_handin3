@@ -1,18 +1,27 @@
 ﻿using ATM.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ATM
 {
     public class TrackEventArgs : EventArgs
     {
+        public ITrack Track { get; }
+
         public TrackEventArgs(ITrack track)
         {
             Track = track;
         }
-        public ITrack Track { get; set; }
-       }
+    }
+
+    public class CollisionEventArgs : EventArgs
+    {
+        public ITrack Plane1 { get; }
+        public ITrack Plane2 { get; }
+
+        public CollisionEventArgs(ITrack plane1, ITrack plane2)
+        {
+            Plane1 = plane1;
+            Plane2 = plane2;
+        }
+    }
 }

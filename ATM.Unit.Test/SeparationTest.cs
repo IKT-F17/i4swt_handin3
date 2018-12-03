@@ -4,10 +4,9 @@ using ATM.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
 
-
 namespace ATM.Unit.Test
 {
-    [TestFixture()]
+    [TestFixture]
     public class SeparationTest
     {
         private IAirspace _fakeAirspace;

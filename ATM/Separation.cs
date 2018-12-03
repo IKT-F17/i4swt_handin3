@@ -1,6 +1,7 @@
 ﻿using System;
+using ATM.Interfaces;
 
-namespace ATM.Interfaces
+namespace ATM
 {
     public class Separation : ISeparation
     {

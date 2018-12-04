@@ -8,10 +8,13 @@ namespace ATM.App
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
+            Console.SetWindowSize(200,60);
 
-            var _track = new TrackFactory(TransponderReceiverFactory.CreateTransponderDataReceiver());
-            var _airspace = new Airspace(_track);
-            new Separation(_airspace);
+            var trackFactory = new TrackFactory(TransponderReceiverFactory.CreateTransponderDataReceiver());
+            var airspace = new Airspace(trackFactory);
+            var separation = new Separation(airspace);
+
+            new Output(trackFactory, airspace,separation);
 
             Console.ReadKey();
         }

@@ -31,7 +31,7 @@ namespace ATM
         {
             foreach (var track in e.TrackData)
             {
-                var _countx = e.TrackData.Count;
+                var _countx = e.TrackData.Count; 
                 for (int i = 0; i < _countx; i++)
                 {
                     Console.SetCursorPosition(0, 9 + _countx);

@@ -18,7 +18,7 @@ namespace ATM.Integration.Test
         private ITransponderReceiver _trFakeData;
         private ITrackFactory _trackFactory;
         private IAirspace _uut;
-        private ITrack _track;
+        //private ITrack _track;
 
         private Track _outsideAirspaceTrackY;
         private Track _insideAirspaceTrack;
@@ -201,12 +201,12 @@ namespace ATM.Integration.Test
             bool NotInAirspace = false;
 
             bool InAirspace = false;
-            bool FoundInAirspace = false;
+            //bool FoundInAirspace = false;
             _uut.OnPlaneEnteringAirspace += (s, e) =>
             {
                 if (InAirspace)
                 {
-                    FoundInAirspace = true;
+                    //FoundInAirspace = true;
                     Assert.IsTrue(e.Track.Tag == outsideAirspaceTrackXEntered.Tag);
                 }
                 else Assert.Fail();

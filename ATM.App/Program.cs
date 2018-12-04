@@ -9,8 +9,9 @@ namespace ATM.App
         {
             Console.CursorVisible = false;
 
-            var track = new TrackFactory(TransponderReceiverFactory.CreateTransponderDataReceiver());
-            new Airspace(track);
+            var _track = new TrackFactory(TransponderReceiverFactory.CreateTransponderDataReceiver());
+            var _airspace = new Airspace(_track);
+            new Separation(_airspace);
 
             Console.ReadKey();
         }

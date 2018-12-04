@@ -27,6 +27,9 @@ namespace ATM
                         && Math.Abs(plane1.Value.YCoord - plane2.Value.YCoord) <= horizontalSeparation)
                     {
                         OnPlaneCollision?.Invoke(this, new CollisionEventArgs(plane1.Value, plane2.Value));
+
+                        Console.SetCursorPosition(0, 21);
+                        Console.WriteLine($"Airplane {plane2.Key} and {plane1.Key} is on a colliding path.");
                     }
                 }
             }

@@ -63,6 +63,7 @@
     <Compile Include="ATM_Integration_Test.cs" />
     <Compile Include="IntegrationTestStep1.cs" />
     <Compile Include="IntegrationTestStep2.cs" />
+    <Compile Include="IntegrationTestStep3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

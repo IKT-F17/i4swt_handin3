@@ -18,6 +18,8 @@ namespace ATM.Unit.Test
         private int verticalSeparation = 300;
         private int horizontalSeparation = 5000;
         private bool FoundPlanesOnCollision = false;
+        private bool FoundPlanesAvoidedCollision = false;
+
 
         [SetUp]
         public void Setup()
@@ -88,6 +90,31 @@ namespace ATM.Unit.Test
                     Assert.Fail();
                 }
             };
+
+            _uut.OnPlaneAvoidedCollision += (s, e) =>
+            {
+                FoundPlanesAvoidedCollision = true;
+
+
+                if (e.Plane1.Tag == e.Plane2.Tag) Assert.Fail();
+
+                if (_insideAirspacePlane1.Tag == e.Plane1.Tag
+                    || _insideAirspacePlane1.Tag == e.Plane2.Tag
+                    || _insideAirspacePlane2.Tag == e.Plane1.Tag
+                    || _insideAirspacePlane2.Tag == e.Plane2.Tag)
+                {
+                    Assert.IsFalse(Math.Abs(e.Plane1.Altitude - e.Plane2.Altitude) <= verticalSeparation
+                                  && Math.Abs(e.Plane1.XCoord - e.Plane2.XCoord) <= horizontalSeparation
+                                  && Math.Abs(e.Plane1.YCoord - e.Plane2.YCoord) <= horizontalSeparation);
+                }
+                else
+                {
+                    Assert.Fail();
+                }
+            };
+
+
+
         }
 
 
@@ -132,6 +159,47 @@ namespace ATM.Unit.Test
             _fakeAirspace.OnAirspaceCheckEventDone += Raise.EventWith(this, new TrackDataEventArgs(AirspaceTracks));
 
             Assert.IsFalse(FoundPlanesOnCollision);
+        }
+
+        [Test]
+        public void FindPlanesOnCollision_AvoidedCollision()
+        {
+
+            var _insideAirspacePlane1AvoidedCollision = new Track()
+            {
+                Altitude = 400,
+                AltitudeOld = 400,
+                Heading = 0,
+                Tag = "PIE284",
+                TimeStamp = new DateTime(2018, 11, 1, 11, 11, 11, 0),
+                TimeStampOld = new DateTime(2018, 11, 1, 11, 11, 10, 0),
+                Velocity = 0,
+                XCoord = 2000,
+                YCoord = 2000,
+                XCoordOld = 16000,
+                YCoordOld = 16000
+            };
+
+
+            var AirspaceTracks = new Dictionary<string, ITrack>();
+
+            FoundPlanesOnCollision = false;
+            FoundPlanesAvoidedCollision = false;
+
+
+            AirspaceTracks.Add(_insideAirspacePlane1.Tag, _insideAirspacePlane1);
+            AirspaceTracks.Add(_insideAirspacePlane2.Tag, _insideAirspacePlane2);
+            AirspaceTracks.Add(_insideAirspacePlane3.Tag, _insideAirspacePlane3);
+
+            _fakeAirspace.OnAirspaceCheckEventDone += Raise.EventWith(this, new TrackDataEventArgs(AirspaceTracks));
+
+            Assert.IsTrue(FoundPlanesOnCollision);
+
+            AirspaceTracks[_insideAirspacePlane1AvoidedCollision.Tag] = _insideAirspacePlane1AvoidedCollision;
+
+            _fakeAirspace.OnAirspaceCheckEventDone += Raise.EventWith(this, new TrackDataEventArgs(AirspaceTracks));
+
+            Assert.IsTrue(FoundPlanesAvoidedCollision);
         }
     }
 }

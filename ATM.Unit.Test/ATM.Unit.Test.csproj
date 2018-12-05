@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AirspaceUnitTest.cs" />
+    <Compile Include="OutputUnitTest.cs" />
     <Compile Include="SeparationTest.cs" />
     <Compile Include="TrackFactoryUnitTest.cs" />
     <Compile Include="TrackUnitTest.cs" />

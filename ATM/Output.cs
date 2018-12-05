@@ -82,21 +82,21 @@ namespace ATM
 
         private void TrackFactory_OnTrackListDoneEvent(object sender, TrackDataEventArgs e)
         {
-            Console.SetCursorPosition(0, 2);
+            SetCursorPosition(0, 2);
             Console.Write($"Outside: {e.TrackData.Count - _airplanesInAirspace} Inside: {_airplanesInAirspace}", CultureInfo.CurrentCulture);
 
 
             var printValidPlanesEntered =
                 _screenTimerEnter.Where(x => (DateTime.Now - x.Value) <= TimeSpan.FromSeconds(5)).Select(x => x.Key).ToList();
             var expiredPlanesEntered = _screenTimerEnter.Keys.Except(printValidPlanesEntered).ToList();
-            Console.SetCursorPosition(0, 3);
+            SetCursorPosition(0, 3);
             Console.Write($"Following planes has entered the airspace: {string.Join(", ", printValidPlanesEntered)}  {string.Join("  ", expiredPlanesEntered.Select(x => "".PadRight(x.Length, ' ')))}", CultureInfo.CurrentCulture);
 
             var printValidPlanesExited =
                 _screenTimerExit.Where(x => (DateTime.Now - x.Value) <= TimeSpan.FromSeconds(5)).Select(x => x.Key).ToList();
             var expiredPlanesExited = _screenTimerExit.Keys.Except(printValidPlanesExited).ToList();
 
-            Console.SetCursorPosition(0, 4);
+            SetCursorPosition(0, 4);
             Console.Write($"Following planes has exited the airspace: {string.Join(", ", printValidPlanesExited)}  {string.Join("  ", expiredPlanesExited.Select(x => "".PadRight(x.Length, ' ')))}", CultureInfo.CurrentCulture);
 
             foreach (var tag in expiredPlanesEntered)
@@ -130,7 +130,7 @@ namespace ATM
                     Console.ForegroundColor = ConsoleColor.White;
                 }
 
-                Console.SetCursorPosition(0, 5 + i);
+                SetCursorPosition(0, 5 + i);
                 var outputData = ( $"Tag: {track.Value.Tag.PadRight(8,' ')}" +           
                                     $"X-Coord: {track.Value.XCoord.ToString().PadRight(7, ' ')}" +
                                     $"Y-Coord: {track.Value.YCoord.ToString().PadRight(7, ' ')}" +
@@ -148,12 +148,24 @@ namespace ATM
 
             for (int i = 0; i < emptyLines; i++)
             {
-                Console.SetCursorPosition(0, 5 + e.TrackData.Count + i);
+                SetCursorPosition(0, 5 + e.TrackData.Count + i);
                 Console.Write(" ");
             }
 
             _airplanesInAirspace = e.TrackData.Count;
             nCharactersCollidingPlanes = nCharCount;
+        }
+
+        private void SetCursorPosition(int col, int row)
+        {
+            try
+            {
+                Console.SetCursorPosition(col, row);
+            }
+            catch (Exception e)
+            {
+                
+            }
         }
     }
 }

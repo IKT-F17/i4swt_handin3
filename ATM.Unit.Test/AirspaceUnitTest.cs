@@ -70,8 +70,6 @@ namespace ATM.Unit.Test
                 YCoordOld = 0
             };
 
-
-
             _outsideAirspaceTrackY = new Track()
             {
                 Altitude = 8000,
@@ -86,20 +84,7 @@ namespace ATM.Unit.Test
                 XCoordOld = 0,
                 YCoordOld = 0
             };
-
-
-
-
-
-            //_fakeTrackFactory.OnTrackListDoneEvent += (o, args) => { testDictionary = args; };
-
         }
-
-        //[Test]
-        //public void ReceiveCorrectTrackFromTrackFactory()
-        //{
-
-        //}
 
         [Test]
         public void NoPlanesInAirspace()
@@ -107,8 +92,7 @@ namespace ATM.Unit.Test
             _uut.OnPlaneEnteringAirspace += (s, e) => { Assert.Fail(); };
 
             _uut.OnPlaneExitingAirspace += (s, e) => { Assert.Fail(); };
-
-
+            
             var testDictionary = new Dictionary<string, ITrack>();
             testDictionary.Add(_outsideAirspaceTrackAlt.Tag, _outsideAirspaceTrackAlt);
             testDictionary.Add(_outsideAirspaceTrackX.Tag, _outsideAirspaceTrackX);
@@ -120,7 +104,6 @@ namespace ATM.Unit.Test
         [Test]
         public void PlaneEntersAirspace()
         {
-
             var testDictionary = new Dictionary<string, ITrack>();
             testDictionary.Add(_outsideAirspaceTrackAlt.Tag, _outsideAirspaceTrackAlt);
             testDictionary.Add(_outsideAirspaceTrackX.Tag, _outsideAirspaceTrackX);
@@ -158,11 +141,8 @@ namespace ATM.Unit.Test
             testDictionary[_outsideAirspaceTrackX.Tag] = outsideAirspaceTrackXEntered;
             InAirspace = true;
 
-
-
             _fakeTrackFactory.OnTrackListDoneEvent += Raise.EventWith(this, new TrackDataEventArgs(testDictionary));
-
-
+            
             Assert.IsTrue(FoundInAirspace);
         }
 
@@ -258,20 +238,14 @@ namespace ATM.Unit.Test
                 else Assert.Fail();
             };
             _uut.OnPlaneExitingAirspace += (s, e) => { Assert.Fail(); };
-
-
+            
             testDictionary.Add(outsideAirspaceTrackXEntered.Tag, outsideAirspaceTrackXEntered);
             InAirspace = true;
-
-
-
+            
             _fakeTrackFactory.OnTrackListDoneEvent += Raise.EventWith(this, new TrackDataEventArgs(testDictionary));
 
 
             Assert.IsTrue(FoundInAirspace);
         }
-
-
-
     }
 }

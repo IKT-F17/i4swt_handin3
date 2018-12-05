@@ -32,11 +32,7 @@ namespace ATM
             foreach (var track in e.TrackData)
             {
                 var _countx = e.TrackData.Count; 
-                for (int i = 0; i < _countx; i++)
-                {
-                    Console.SetCursorPosition(0, 9 + _countx);
-                    Console.WriteLine(" ");
-                }
+                
 
 
                 if (IsInsideAirspace(track.Value))
@@ -68,27 +64,6 @@ namespace ATM
                         //Console.Write($"{track.Key} - left Airspace.",CultureInfo.CurrentCulture);
                     }
                 }
-
-                // DEBUG:
-                //Console.SetCursorPosition(0,8);
-                //Console.Write($"Outside: {outsideAirspace.Count} Inside: {insideAirspace.Count}",CultureInfo.CurrentCulture);
-
-                //foreach (var printTrack in e.TrackData)
-                //{
-                //    var _count = e.TrackData.Count;
-                //    for (int i = 0; i < _count; i++)
-                //    {
-                //        Console.SetCursorPosition(0, 9 + _count);
-                //        Console.WriteLine(" ");
-                //    }
-                //    for (int i = 0; i < _count; i++)
-                //    {
-                //        Console.SetCursorPosition(0, 9 + i);
-                //        Console.WriteLine($"Tag: {track.Value.Tag}   X-Coord: {track.Value.XCoord}    Y-Coord: {track.Value.YCoord}   Altitude: {track.Value.Altitude} Timestamp: {track.Value.TimeStamp:yyyyMMddHHmmssfff}");
-                //    }
-                //}
-
-
             }
 
             // TODO: Remove all tracks, from the global track dictionary, which are outside the airspace.
